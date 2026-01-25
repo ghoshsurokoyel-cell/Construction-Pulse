@@ -90,7 +90,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           await syncUserWithBackend()
           fetchNotifications()
           
-          const newSocket = io(process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:5000')
+          const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+          const socketBaseUrl = rawApiUrl.replace(/\/$/, '').replace(/\/api$/, '')
+          const newSocket = io(socketBaseUrl || 'http://localhost:5000')
           newSocket.emit('join', firebaseUser.uid)
           
           newSocket.on('notification', (notification) => {

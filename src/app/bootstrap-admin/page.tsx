@@ -4,7 +4,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const sanitizedApiUrl = rawApiUrl.replace(/\/$/, '')
+const API_URL = sanitizedApiUrl.endsWith('/api')
+  ? sanitizedApiUrl
+  : `${sanitizedApiUrl}/api`
 
 export default function BootstrapAdminPage() {
   const [name, setName] = useState('')
