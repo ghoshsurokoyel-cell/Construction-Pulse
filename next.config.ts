@@ -38,18 +38,19 @@ const nextConfig: NextConfig = {
   /**
    * Turbopack rules are ONLY for Orchids / local preview.
    * Vercel must NOT see custom loaders.
+   * Temporarily disabled to fix Turbopack directory reading issue
    */
-  ...(process.env.VERCEL
-    ? {}
-    : {
-        turbopack: {
-          rules: {
-            "*.{jsx,tsx}": {
-              loaders: [LOADER],
-            },
-          },
-        },
-      }),
+  // ...(process.env.VERCEL
+  //   ? {}
+  //   : {
+  //       turbopack: {
+  //         rules: {
+  //           "*.{jsx,tsx}": {
+  //             loaders: [LOADER],
+  //           },
+  //         },
+  //       },
+  //     }),
 };
 
 export default nextConfig;
